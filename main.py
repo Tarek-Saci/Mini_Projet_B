@@ -33,14 +33,20 @@ def integrale_rectangles(p1, p2, p3, p4, a, b, n):
 
 # -------fonction calcule d'erreur -----------------------------------------------
 def erreur (resultat_analytique , resultat_rectangle):
-    erreur = resultat_analytique/resultat_rectangle
-    erreur = abs((1-erreur) * 100)
+    #[(valeur réelle - valeur théorique)/valeur réelle] x 100
+    erreur = ((resultat_analytique - resultat_rectangle)/resultat_analytique)*100
+    return erreur
+# -------fonction calcul d'erreur en fonction de n -------------------------------
+def erreur_fonction_n(n):
+    resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
+    resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
+    erreur = ((resultat_analytique - resultat_rectangle)/resultat_analytique)*100
     return erreur
 # --------------------------------------------------------------------------------
 
 resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
 resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
-erreur = erreur(resultat_analytique , resultat_rectangle)
+erreur = erreur_fonction_n(n)
 print(f'resultat analytique : {resultat_analytique}')
 print(f'resultat rectangles : {resultat_rectangle}')
 print(f'erreur : {erreur} %')

@@ -3,7 +3,7 @@ p1 = 5
 p2 = 5
 p3 = 7
 p4 = 1
-n = 850
+n = 100
 a = -10
 b = 15
 
@@ -29,10 +29,18 @@ def integrale_rectangles(p1, p2, p3, p4, a, b, n):
         liste_aires_rectangle.append(aire)
         x += largeur_rectangle
     resultat = sum(liste_aires_rectangle)
-    print(resultat)
     return resultat
 
-
+# -------fonction calcule d'erreur -----------------------------------------------
+def erreur (resultat_analytique , resultat_rectangle):
+    erreur = resultat_analytique/resultat_rectangle
+    erreur = abs((1-erreur) * 100)
+    return erreur
 # --------------------------------------------------------------------------------
-print(integrale_analytique(p1, p2, p3, p4, a, b))
-print(integrale_rectangles(p1, p2, p3, p4, a, b, n))
+
+resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
+resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
+erreur = erreur(resultat_analytique , resultat_rectangle)
+print(f'resultat analytique : {resultat_analytique}')
+print(f'resultat rectangles : {resultat_rectangle}')
+print(f'erreur : {erreur} %')

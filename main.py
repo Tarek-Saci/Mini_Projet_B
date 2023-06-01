@@ -7,6 +7,7 @@ n = 10
 a = -10
 b = 15
 
+
 # -------une fonction qui determine la solution analytique ----------------------
 def integrale_analytique(p1, p2, p3, p4, a, b):
     x = a
@@ -16,6 +17,17 @@ def integrale_analytique(p1, p2, p3, p4, a, b):
     resultat = primitive_2 - primitive_1
     return resultat
 
-# -------fonction methode des rectangles-----------------------------------------
 
-print(integrale_analytique(p1,p2,p3,p4,a,b))
+# -------fonction methode des rectangles-----------------------------------------
+def integrale_rectangles(p1, p2, p3, p4, a, b, n):
+    largeur_rectangle = (b - a) / n
+    x = a
+    while x <= b:
+        print(x)
+        x += largeur_rectangle
+    return
+
+
+# --------------------------------------------------------------------------------
+print(integrale_analytique(p1, p2, p3, p4, a, b))
+print(integrale_rectangles(p1, p2, p3, p4, a, b, n))

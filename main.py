@@ -1,9 +1,9 @@
 # -------fixer les parametres----------------------------------------------------
-p1 = 1
-p2 = 2
-p3 = 3
-p4 = 4
-n = 20
+p1 = 5
+p2 = 5
+p3 = 7
+p4 = 1
+n = 850
 a = -10
 b = 15
 
@@ -23,7 +23,7 @@ def integrale_rectangles(p1, p2, p3, p4, a, b, n):
     largeur_rectangle = (b - a) / n
     liste_aires_rectangle = [] #on initalise une liste qui va contenir toutes les aires des rectangles qu'on poura ensuite aditionner
     x = a + largeur_rectangle / 2  # on éssaye de placer x au milieu du rectangle
-    while x <= b:  # on fait varier x avec un pas égale a la largeur du rectangle
+    while x <= b-(largeur_rectangle/2):  # on fait varier x avec un pas égale a la largeur du rectangle
         hauteur_rectagle = (p1) + (p2 * x) + (p3 * x ** 2) + (p4 * x ** 3)
         aire = hauteur_rectagle * largeur_rectangle
         liste_aires_rectangle.append(aire)

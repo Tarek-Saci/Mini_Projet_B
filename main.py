@@ -7,10 +7,9 @@ p1 = 5
 p2 = 5
 p3 = 7
 p4 = 1
-n = 1000
+n = 10000
 a = -10
 b = 15
-# il faut rajouter la fonction timeit
 
 # -------une fonction qui determine la solution analytique ----------------------
 def integrale_analytique(p1, p2, p3, p4, a, b):
@@ -67,8 +66,10 @@ def convergence(n):  # consigne 5 eventuelement
     return
 
 
+# -------fonction timeit---------------------------------------------------------
+temps_execution = timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, n), number=1000)
+print(f"Temps d'exécution : {temps_execution} secondes")
 # --------------------------------------------------------------------------------
-
 resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
 resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
 erreur_n = erreur_fonction_n(n)

@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import timeit
 import numpy as np
 
 # -------fixer les parametres----------------------------------------------------
@@ -6,10 +7,10 @@ p1 = 5
 p2 = 5
 p3 = 7
 p4 = 1
-n = 100
+n = 1000
 a = -10
 b = 15
-
+# il faut rajouter la fonction timeit
 
 # -------une fonction qui determine la solution analytique ----------------------
 def integrale_analytique(p1, p2, p3, p4, a, b):
@@ -51,13 +52,18 @@ def erreur_fonction_n(n):
 
 
 # -------fonction de verification de convergence----------------------------------
-def convergence(n):
-    list_erreur = []  # initialiser une liste qui nous permetera de recuperer la valeur de l'integrale en fonction de n
+def convergence(n):  # consigne 5 eventuelement
+    liste_erreur = []  # initialiser une liste qui nous permetera de recuperer la valeur de l'integrale en fonction de n
     liste_n = []  # initialiser une liste qui nous permetera de recuperer la valeur de n a chaque iteration
-    for i in range(n):
-        list_erreur.append(erreur_fonction_n(i))
-        list_n
-    plt.plot()
+    for i in range(1, n, 1):
+        liste_erreur.append(erreur_fonction_n(i))
+        liste_n.append(i)
+    plt.plot(liste_n, liste_erreur)
+    plt.title('erreur en fonction du nombre de segments')
+    plt.xlabel('n')
+    plt.ylabel('erreur [%]')
+    plt.grid(True)
+    plt.show()
     return
 
 
@@ -65,7 +71,8 @@ def convergence(n):
 
 resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
 resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
-erreur = erreur_fonction_n(n)
+erreur_n = erreur_fonction_n(n)
 print(f'resultat analytique : {resultat_analytique}')
 print(f'resultat rectangles : {resultat_rectangle}')
-print(f'erreur : {erreur} %')
+print(f'erreur : {erreur_n} %')
+convergence(n)

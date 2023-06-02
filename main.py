@@ -69,7 +69,14 @@ def convergence(n):  # consigne 5 eventuelement
 # -------fonction timeit---------------------------------------------------------
 temps_execution = timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, n), number=1000)
 print(f"Temps d'exécution : {temps_execution} secondes")
+
+
+# -------fonction de calcul d'integral numpy--------------------------------------
+
+
+
 # --------------------------------------------------------------------------------
+
 resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
 resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
 erreur_n = erreur_fonction_n(n)

@@ -7,9 +7,10 @@ p1 = 5
 p2 = 5
 p3 = 7
 p4 = 1
-n = 10000
+n = 1000
 a = -10
 b = 15
+
 
 # -------une fonction qui determine la solution analytique ----------------------
 def integrale_analytique(p1, p2, p3, p4, a, b):
@@ -65,22 +66,30 @@ def convergence(n):  # consigne 5 eventuelement
     plt.show()
     return
 
+# -------fonction de calcul d'integral numpy methode des trapèzes--------------------------------------
+def integrale_numpy():
+    x = [np.linspace(a, b, n)]
+    y = []
+    for i in x:
+        y.append((p1) + (p2 * i) + (p3 * i ** 2) + (p4 * i ** 3))
+    resultat = np.trapz(y, x)
+    return resultat
 
-# -------fonction timeit---------------------------------------------------------
-temps_execution = timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, n), number=1000)
-print(f"Temps d'exécution : {temps_execution} secondes")
-
-
-# -------fonction de calcul d'integral numpy--------------------------------------
-
+# -------timeit methode des rectangles-----------------------------------------------------------------
+temps_execution_rectangles = timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, n), number=100)
+temps_exectution_numpy = timeit.timeit(lambda: integrale_numpy(), number=100)
 
 
 # --------------------------------------------------------------------------------
 
 resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
 resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
+resultat_numpy = float(integrale_numpy())
 erreur_n = erreur_fonction_n(n)
 print(f'resultat analytique : {resultat_analytique}')
 print(f'resultat rectangles : {resultat_rectangle}')
 print(f'erreur : {erreur_n} %')
+print(f"Temps d'exécution avec la methode des rectangles : {temps_execution_rectangles} secondes")
+print(f'resultat numpy :{resultat_numpy}')
+print(f"Temps d'exécution avec la méthode NumPy : {temps_exectution_numpy} secondes")
 convergence(n)

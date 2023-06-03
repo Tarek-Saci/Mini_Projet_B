@@ -7,7 +7,7 @@ p1 = 5
 p2 = 5
 p3 = 7
 p4 = 1
-n = 100
+n = 50
 a = -10
 b = 15
 
@@ -102,8 +102,23 @@ def convergence_numpy(n):  # consigne 5 eventuelement
 temps_execution_rectangles = timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, n), number=100)
 temps_exectution_numpy = timeit.timeit(lambda: integrale_numpy(n), number=100)
 
-# --------------------------------------------------------------------------------
+# -------erreur en fonction du temps d'execution methode des rectangles-----------
+def erreur_temps_rectangles(n):
+    x = []
+    y = []
+    for i in range(1,n,1):
+        x.append(timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, i), number=1))
+        y.append(erreur_fonction_n_rectangles(i))
+    # !!!!!!!!!!!!!!!!!!!il faut trieer les listes x et y!!!!!!!
+    plt.figure()
+    plt.plot(x , y , label = 'methode rectangles')
+    plt.xlabel("temps d'execution [s]")
+    plt.ylabel("erreur [%]")
+    plt.title("erreur numerique en fonction du temps d'execution")
+    plt.grid
+    plt.show()
 
+# --------------------------------------------------------------------------------
 resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
 resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
 resultat_numpy = float(integrale_numpy(n))
@@ -129,3 +144,5 @@ convergence_rectangles(n)
 convergence_numpy(n)
 
 plt.show()
+
+erreur_temps_rectangles(n)

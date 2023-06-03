@@ -7,7 +7,7 @@ p1 = 5
 p2 = 5
 p3 = 7
 p4 = 1
-n = 1000
+n = 500
 a = -10
 b = 15
 
@@ -26,7 +26,7 @@ def integrale_analytique(p1, p2, p3, p4, a, b):
 def integrale_rectangles(p1, p2, p3, p4, a, b, n):
     largeur_rectangle = (b - a) / n
     liste_aires_rectangle = []  # on initalise une liste qui va contenir toutes les aires des rectangles qu'on poura ensuite aditionner
-    x = a + largeur_rectangle / 2  # on éssaye de placer x au milieu du rectangle
+    x = a + (largeur_rectangle / 2)  # on éssaye de placer x au milieu du rectangle
     while x <= b - (largeur_rectangle / 2):  # on fait varier x avec un pas égale a la largeur du rectangle
         hauteur_rectagle = (p1) + (p2 * x) + (p3 * x ** 2) + (p4 * x ** 3)
         aire = hauteur_rectagle * largeur_rectangle
@@ -42,29 +42,12 @@ def erreur(resultat_analytique, resultat_rectangle):
     erreur = ((resultat_analytique - resultat_rectangle) / resultat_analytique) * 100
     return erreur
 
-
-# -------fonction calcul d'erreur en fonction de n -------------------------------
-def erreur_fonction_n(n):
+# -------fonction calcul d'erreur en fonction de n methode des rectangles---------
+def erreur_fonction_n_rectangles(n):
     resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
     resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
     erreur = ((resultat_analytique - resultat_rectangle) / resultat_analytique) * 100
     return erreur
-
-
-# -------fonction de verification de convergence----------------------------------
-def convergence(n):  # consigne 5 eventuelement
-    liste_erreur = []  # initialiser une liste qui nous permetera de recuperer la valeur de l'integrale en fonction de n
-    liste_n = []  # initialiser une liste qui nous permetera de recuperer la valeur de n a chaque iteration
-    for i in range(1, n, 1):
-        liste_erreur.append(erreur_fonction_n(i))
-        liste_n.append(i)
-    plt.plot(liste_n, liste_erreur)
-    plt.title('erreur en fonction du nombre de segments')
-    plt.xlabel('n')
-    plt.ylabel('erreur [%]')
-    plt.grid(True)
-    plt.show()
-    return
 
 # -------fonction de calcul d'integral numpy methode des trapèzes--------------------------------------
 def integrale_numpy():
@@ -75,21 +58,66 @@ def integrale_numpy():
     resultat = np.trapz(y, x)
     return resultat
 
-# -------timeit methode des rectangles-----------------------------------------------------------------
+# -------fonction calcul d'erreur en fonction de n methode NumPy------------------
+def erreur_fonction_n_numpy(n):
+    resultat_numpy = integrale_numpy()
+    resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
+    erreur_numpy = ((resultat_analytique - resultat_numpy) / resultat_analytique) * 100
+    return erreur_numpy
+
+# -------fonction de verification de convergence par la methode des rectangles----
+def convergence_rectangles(n):  # consigne 5 eventuelement
+    liste_erreur = []  # initialiser une liste qui nous permetera de recuperer la valeur de l'integrale en fonction de n
+    liste_n = []  # initialiser une liste qui nous permetera de recuperer la valeur de n a chaque iteration
+    for i in range(1, n, 1):
+        liste_erreur.append(erreur_fonction_n_rectangles(i))
+        liste_n.append(i)
+    plt.plot(liste_n, liste_erreur)
+    plt.title('erreur en fonction du nombre de segments méthode des rectangles')
+    plt.xlabel('n')
+    plt.ylabel('erreur [%]')
+    plt.grid(True)
+    plt.show()
+    return
+
+# -------fonction de verification de convergence par la methode NumPy----
+def convergence_numpy(n):  # consigne 5 eventuelement
+    liste_erreur = []  # initialiser une liste qui nous permetera de recuperer la valeur de l'integrale en fonction de n
+    liste_n = []  # initialiser une liste qui nous permetera de recuperer la valeur de n a chaque iteration
+    for i in range(1, n, 1):
+        liste_erreur.append(erreur_fonction_n_numpy(i))
+        liste_n.append(i)
+    plt.plot(liste_n, liste_erreur)
+    plt.title('erreur en fonction du nombre de segments methode NumPy')
+    plt.xlabel('n')
+    plt.ylabel('erreur [%]')
+    plt.grid(True)
+    plt.show()
+    return
+# -------timeit methode des rectangles--------------------------------------------
 temps_execution_rectangles = timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, n), number=100)
 temps_exectution_numpy = timeit.timeit(lambda: integrale_numpy(), number=100)
-
 
 # --------------------------------------------------------------------------------
 
 resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
 resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
 resultat_numpy = float(integrale_numpy())
-erreur_n = erreur_fonction_n(n)
+erreur_n_rectangles = erreur_fonction_n_rectangles(n)
+erreur_n_numpy = erreur_fonction_n_numpy(n)
+
 print(f'resultat analytique : {resultat_analytique}')
+
 print(f'resultat rectangles : {resultat_rectangle}')
-print(f'erreur : {erreur_n} %')
-print(f"Temps d'exécution avec la methode des rectangles : {temps_execution_rectangles} secondes")
+
 print(f'resultat numpy :{resultat_numpy}')
+
+print(f'erreur methode rectangles: {erreur_n_rectangles} %')
+
+print(f'erreur methode NumPy: {erreur_n_numpy} %')
+
+print(f"Temps d'exécution avec la methode des rectangles : {temps_execution_rectangles} secondes")
+
 print(f"Temps d'exécution avec la méthode NumPy : {temps_exectution_numpy} secondes")
-convergence(n)
+
+convergence_rectangles(n)

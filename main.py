@@ -7,7 +7,7 @@ p1 = 5
 p2 = 5
 p3 = 7
 p4 = 1
-n = 50
+n = 500
 a = -10
 b = 15
 
@@ -109,7 +109,11 @@ def erreur_temps_rectangles(n):
     for i in range(1,n,1):
         x.append(timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, i), number=1))
         y.append(erreur_fonction_n_rectangles(i))
-    # !!!!!!!!!!!!!!!!!!!il faut trieer les listes x et y!!!!!!!
+    # !!!il faut trieer les listes x et y!!!
+    liste_combnee = list(zip(x , y)) #on combine les liste en une liste de liste a deux elements
+    liste_combnee = sorted(liste_combnee) #on trie la liste obtenu
+    x , y = zip(*liste_combnee) #on decoupe les tuples en deux pour mettre chaque element dans des listes differentes
+    #on affiche le graphe
     plt.figure()
     plt.plot(x , y , label = 'methode rectangles')
     plt.xlabel("temps d'execution [s]")

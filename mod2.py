@@ -7,9 +7,9 @@ p1 = 1
 p2 = 2
 p3 = 3
 p4 = 4
-n = 100
-a = -10
-b = 15
+n = 200
+a = -1
+b = 1
 
 
 # -------une fonction qui determine la solution analytique ----------------------
@@ -115,13 +115,14 @@ def erreur_temps_rectangles(n):
     liste_combnee = sorted(liste_combnee) #on trie la liste obtenu
     x , y = zip(*liste_combnee) #on decoupe les tuples en deux pour mettre chaque element dans des listes differentes
     #on affiche le graphe
-    plt.figure()
+
     plt.plot(x , y , label = 'methode rectangles')
     plt.xlabel("temps d'execution [s]")
     plt.ylabel("erreur [%]")
     plt.title("erreur numerique en fonction du temps d'execution methode rectangles")
     plt.grid(True)
-    plt.show()
+    plt.legend()
+    #plt.show()
 # -------erreur en fonction du temps d'execution methode NumPy--------------------
 def erreur_temps_numpy(n):
     x = []
@@ -134,11 +135,12 @@ def erreur_temps_numpy(n):
     liste_combnee = sorted(liste_combnee)  # on trie la liste obtenu
     x, y = zip(*liste_combnee)  # on decoupe les tuples en deux pour mettre chaque element dans des listes differentes
     # on affiche le graphe
-    plt.figure()
+    #plt.figure()
     plt.plot(x, y, label='methode NumPy')
     plt.xlabel("temps d'execution [s]")
     plt.ylabel("erreur [%]")
     plt.title("erreur numerique en fonction du temps d'execution methode NumPy")
     plt.grid(True)
+    plt.legend()
     plt.show()
     return

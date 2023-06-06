@@ -50,11 +50,17 @@ def erreur_fonction_n_rectangles(n):
     return erreur
 
 # -------fonction de calcul d'integral numpy methode des trapèzes--------------------------------------
+# def integrale_numpy(n):
+#     x = np.linspace(a, b, n)
+#     y = ((p1) + (p2 * x) + (p3 * x ** 2) + (p4 * x ** 3))
+#     resultat = np.trapz(y, x)
+#     return resultat
 def integrale_numpy(n):
-    x = np.linspace(a, b, n)
-    y = ((p1) + (p2 * x) + (p3 * x ** 2) + (p4 * x ** 3))
-    resultat = np.trapz(y, x)
-    return resultat
+    x = np.linspace(a, b, n + 1)  # Points d'échantillonnage
+    largeur_segment = (b - a) / n  # Largeur de chaque segment
+    hauteurs = p1 + p2 * x[:-1] + p3 * x[:-1] ** 2 + p4 * x[:-1] ** 3  # Hauteurs des rectangles
+    aire = np.sum(hauteurs * largeur_segment)  # Somme des aires des rectangles
+    return aire
 
 # -------fonction calcul d'erreur en fonction de n methode NumPy------------------
 def erreur_fonction_n_numpy(n):

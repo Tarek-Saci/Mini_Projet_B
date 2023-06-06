@@ -23,7 +23,7 @@ def integrale_analytique(p1, p2, p3, p4, a, b):
 
 
 # -------fonction methode des rectangles-----------------------------------------
-def integrale_rectangles(p1, p2, p3, p4, a, b, n):
+def integrale_rectangles(n):
     largeur_rectangle = (b - a) / n
     liste_aires_rectangle = []  # on initalise une liste qui va contenir toutes les aires des rectangles qu'on poura ensuite aditionner
     x = a + (largeur_rectangle / 2)  # on éssaye de placer x au milieu du rectangle
@@ -44,7 +44,7 @@ def erreur(resultat_analytique, resultat_rectangle):
 
 # -------fonction calcul d'erreur en fonction de n methode des rectangles---------
 def erreur_fonction_n_rectangles(n):
-    resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
+    resultat_rectangle = integrale_rectangles(n)
     resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
     erreur = ((resultat_analytique - resultat_rectangle) / resultat_analytique) * 100
     return erreur
@@ -97,7 +97,7 @@ def convergence_numpy(n):  # consigne 5 eventuelement
     #plt.show()
     return
 # -------timeit methode des rectangles--------------------------------------------
-temps_execution_rectangles = timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, n), number=100)
+temps_execution_rectangles = timeit.timeit(lambda: integrale_rectangles(n), number=100)
 temps_exectution_numpy = timeit.timeit(lambda: integrale_numpy(n), number=100)
 
 # -------erreur en fonction du temps d'execution methode des rectangles-----------
@@ -105,7 +105,7 @@ def erreur_temps_rectangles(n):
     x = []
     y = []
     for i in range(1,n,1):
-        x.append(timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, i), number=10))
+        x.append(timeit.timeit(lambda: integrale_rectangles(i), number=10))
         y.append(erreur_fonction_n_rectangles(i))
     # !!!il faut trieer les listes x et y!!!
     liste_combnee = list(zip(x , y)) #on combine les liste en une liste de liste a deux elements
@@ -124,7 +124,7 @@ def erreur_temps_numpy(n):
     x = []
     y = []
     for i in range(1, n, 1):
-        x.append(timeit.timeit(lambda: integrale_rectangles(p1, p2, p3, p4, a, b, i), number=10))
+        x.append(timeit.timeit(lambda: integrale_rectangles(i), number=10))
         y.append(erreur_fonction_n_rectangles(i))
     # !!!il faut trieer les listes x et y!!!
     liste_combnee = list(zip(x, y))  # on combine les liste en une liste de liste a deux elements
@@ -141,7 +141,7 @@ def erreur_temps_numpy(n):
     return
 # --------------------------------------------------------------------------------
 resultat_analytique = integrale_analytique(p1, p2, p3, p4, a, b)
-resultat_rectangle = integrale_rectangles(p1, p2, p3, p4, a, b, n)
+resultat_rectangle = integrale_rectangles(n)
 resultat_numpy = float(integrale_numpy(n))
 erreur_n_rectangles = erreur_fonction_n_rectangles(n)
 erreur_n_numpy = erreur_fonction_n_numpy(n)

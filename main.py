@@ -51,10 +51,8 @@ def erreur_fonction_n_rectangles(n):
 
 # -------fonction de calcul d'integral numpy methode des trapèzes--------------------------------------
 def integrale_numpy(n):
-    x = [np.linspace(a, b, n)]
-    y = []
-    for i in x:
-        y.append((p1) + (p2 * i) + (p3 * i ** 2) + (p4 * i ** 3))
+    x = np.linspace(a, b, n)
+    y = ((p1) + (p2 * x) + (p3 * x ** 2) + (p4 * x ** 3))
     resultat = np.trapz(y, x)
     return resultat
 

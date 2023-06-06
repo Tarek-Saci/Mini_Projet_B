@@ -3,10 +3,10 @@ import timeit
 import numpy as np
 
 # -------fixer les parametres----------------------------------------------------
-p1 = 5
-p2 = 5
-p3 = 7
-p4 = 1
+p1 = 1
+p2 = 2
+p3 = 3
+p4 = 4
 n = 100
 a = -10
 b = 15
@@ -59,8 +59,8 @@ def integrale_numpy(n):
     x = np.linspace(a, b, n + 1)  # Points d'échantillonnage
     largeur_segment = (b - a) / n  # Largeur de chaque segment
     hauteurs = p1 + p2 * x[:-1] + p3 * x[:-1] ** 2 + p4 * x[:-1] ** 3  # Hauteurs des rectangles
-    aire = np.sum(hauteurs * largeur_segment)  # Somme des aires des rectangles
-    return aire
+    resultat = np.sum(hauteurs * largeur_segment)  # Somme des aires des rectangles
+    return resultat
 
 # -------fonction calcul d'erreur en fonction de n methode NumPy------------------
 def erreur_fonction_n_numpy(n):
